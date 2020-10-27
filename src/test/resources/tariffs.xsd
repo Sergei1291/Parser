@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://www.example.com/tariffs"
+        xmlns:tns="http://www.example.com/tariffs"
+        elementFormDefault="qualified">
+
+    <element name="tariffs">
+        <complexType>
+            <sequence>
+                <element ref="tns:abstract-tariff"
+                         minOccurs="2"
+                         maxOccurs="6"/>
+            </sequence>
+        </complexType>
+    </element>
+
+    <element name="abstract-tariff" type="tns:abstract-tariff" abstract="true"/>
+    <element name="tariff" type="tns:tariff" substitutionGroup="tns:abstract-tariff"/>
+    <element name="payroll-tariff" type="tns:payroll-tariff" substitutionGroup="tns:abstract-tariff"/>
+
+    <complexType name="abstract-tariff">
+        <sequence>
+            <element name="price" type="tns:price"/>
+        </sequence>
+        <attribute name="name" use="required">
+            <simpleType>
+                <restriction base="ID">
+                    <pattern value="[A-Z]([a-zA-Z0-9\-]){5,29}"/>
+                </restriction>
+            </simpleType>
+        </attribute>
+    </complexType>
+
+    <complexType name="price">
+        <sequence>
+            <element name="call">
+                <simpleType>
+                    <restriction base="positiveInteger">
+                        <maxInclusive value="50"/>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="traffic">
+                <simpleType>
+                    <restriction base="positiveInteger">
+                        <maxInclusive value="10"/>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="sms">
+                <simpleType>
+                    <restriction base="positiveInteger">
+                        <maxInclusive value="10"/>
+                    </restriction>
+                </simpleType>
+            </element>
+        </sequence>
+    </complexType>
+
+    <complexType name="tariff">
+        <complexContent>
+            <extension base="tns:abstract-tariff">
+                <sequence>
+                    <element name="favorite-number">
+                        <simpleType>
+                            <restriction base="string">
+                                <pattern value="[0-9]{9}"/>
+                            </restriction>
+                        </simpleType>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <complexType name="payroll-tariff">
+        <complexContent>
+            <extension base="tns:abstract-tariff">
+                <sequence>
+                    <element name="payroll">
+                        <simpleType>
+                            <restriction base="positiveInteger">
+                                <minInclusive value="100"/>
+                                <maxInclusive value="1000"/>
+                            </restriction>
+                        </simpleType>
+                    </element>
+                </sequence>
+                <attribute name="included-traffic" use="optional" default="one">
+                    <simpleType>
+                        <restriction base="string">
+                            <enumeration value="one"/>
+                            <enumeration value="two"/>
+                            <enumeration value="four"/>
+                            <enumeration value="eight"/>
+                            <enumeration value="sixteen"/>
+                        </restriction>
+                    </simpleType>
+                </attribute>
+            </extension>
+        </complexContent>
+    </complexType>
+
+</schema>

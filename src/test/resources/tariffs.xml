@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<tariffs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://www.example.com/tariffs"
+         xsi:schemaLocation="http://www.example.com/tariffs tariffs.xsd">
+
+    <tariff name="First-tariff-1">
+        <price>
+            <call>10</call>
+            <traffic>1</traffic>
+            <sms>1</sms>
+        </price>
+        <favorite-number>112223344</favorite-number>
+    </tariff>
+
+    <tariff name="Tariff-second">
+        <price>
+            <call>20</call>
+            <traffic>2</traffic>
+            <sms>2</sms>
+        </price>
+        <favorite-number>556667788</favorite-number>
+    </tariff>
+
+    <payroll-tariff name="SimplePayroll" included-traffic="one">
+        <price>
+            <call>30</call>
+            <traffic>3</traffic>
+            <sms>3</sms>
+        </price>
+        <payroll>300</payroll>
+    </payroll-tariff>
+
+    <payroll-tariff name="Internet-16" included-traffic="sixteen">
+        <price>
+            <call>40</call>
+            <traffic>4</traffic>
+            <sms>4</sms>
+        </price>
+        <payroll>400</payroll>
+    </payroll-tariff>
+
+</tariffs>
